@@ -1,0 +1,18 @@
+ # Setup a new program install
+
+ Start by creating a folder under documents we will use 1 folder per program
+ Run the following commands
+ 
+ WINEARCH=win32(only rarely use win64) WINEPREFIX=location_of_bottle winetricks
+ 
+ ie: WINEARCH=win32  WINEPREFIX=~/Documents/Wine/testbottle winetricks
+
+ From fonts install corefont and tuhuma
+ 
+ # Running a program
+ 
+ Copy exe in to c drive root of location_of_bottle
+ 
+ WINEARCH=win32  WINEPREFIX=~/Documents/Wine/testbottle wine ~/Documents/Wine/testbottle/drive_c/Sopas/SopasET.exe 
+ 
+ 

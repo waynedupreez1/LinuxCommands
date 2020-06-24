@@ -1,0 +1,53 @@
+TCPDump
+sudo tcpdump -i br0 -q -n src or dst portrange 35000-35049
+
+IpTables
+sudo iptables -t nat -L
+
+LXC
+List containers - lxc list
+Config Default Profile To Use Bridged NIC = lxc profile device set default eth0 nictype bridged
+Config Default Profile To Use Parent br0 = lxc profile device set default eth0 parent br0
+Delete Lxdbr0 = lxc network delete lxdbr0
+
+mount host dir into container - lxc config device add (container name) (share name) disk source=(host path) path=(container path)
+i.e. lxc config device add ansible ansible_files disk source=/home/pdi_server/ansible_files path=/home/ubuntu/ansible_files
+
+apply profile = lxc profile apply <container> <profile1>,<profile2>,<profile3>,..
+
+#for installing nfs mount capable containers
+lxc launch ubuntu:16.04 nfs -c security.privileged=true -c raw.apparmor="mount fstype=rpc_pipefs, mount fstype=nfsd,"
+
+create machine from image = lxc launch tfs tfs
+
+lxc file pull <container>/<path> <dest>
+
+make image from container = lxc publish my-container --alias my-new-image
+make image from snapshot = lxc publish my-container/some-snapshot --alias some-image
+export image = lxc image export [container] [path]
+import image = lxc image import <tarball> --alias random-image
+
+SSH keys
+ssh-keygen
+sshpass -p password ssh-copy-id -i /home/{{user}}/.ssh/id_rsa.pub -o StrictHostKeyChecking=no user@serverB
+
+Samba
+sudo smbpasswd -a username
+sudo service smbd restart
+sudo nano /etc/samba/smb.conf
+[data]
+	path = /home/ssbd_admin/data
+	writeable = yes
+;	browseable = yes
+	valid users = ssbd_admin, ssbd_user
+
+[share]
+	path = /home/ssbd_admin/share
+	writeable = yes
+;	browseable = yes
+	valid users = ssbd_admin, ssbd_user
+
+copy a file in command line = smbclient -U (username) //(IP of share)/(share folder) -c 'put (file to copy)'
+
+Systemd
+https://wiki.archlinux.org/index.php/Systemd#Analyzing_the_system_state
