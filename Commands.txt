@@ -51,3 +51,6 @@ copy a file in command line = smbclient -U (username) //(IP of share)/(share fol
 
 Systemd
 https://wiki.archlinux.org/index.php/Systemd#Analyzing_the_system_state
+
+SSH Keygen
+ssh-keygen
