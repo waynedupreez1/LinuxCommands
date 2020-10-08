@@ -54,3 +54,18 @@ https://wiki.archlinux.org/index.php/Systemd#Analyzing_the_system_state
 
 SSH Keygen
 ssh-keygen
+
+NTP
+sudo nano /etc/systemd/timesyncd.conf
+
+[Time]
+NTP=ur.ntp.srv
+FallbackNTP=ur.fallbackntp.srv
+
+sudo systemctl daemon-reload
+sudo timedatectl set-ntp off
+sudo timedatectl set-ntp on
+
+timedatectl status
+
+sudo ufw allow out from any to any port 123
